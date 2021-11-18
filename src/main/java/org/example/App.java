@@ -1,6 +1,6 @@
 package org.example;
 
-/** Conor Begley n
+/** Conor Begley
  * This Vehicle Bookings Management Systems manages the booking of Vehicles
  * by Passengers.
  *
@@ -32,6 +32,12 @@ public class App
         System.out.println("List of all Vehicles:");
         vehicleManager.displayAllVehicles();
 
+        String reg = "";
+        Vehicle v = vehicleManager.findVehicleByRegNumber(reg);
+        if(v != null)
+        {
+            System.out.println(v);
+        }
         System.out.println("Program exiting... Goodbye");
     }
 }

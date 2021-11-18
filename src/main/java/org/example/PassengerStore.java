@@ -25,6 +25,7 @@ public class PassengerStore {
         }
     }
 
+
     /**
      * Read Passenger records from a text file and create and add Passenger
      * objects to the PassengerStore.
@@ -56,5 +57,22 @@ public class PassengerStore {
     }
 
     // TODO - see functional spec for details of code to add
+    public void addPassenger(String name, String email, String phone, double latitude, double longitude)
+    {
+        boolean found = false;
+        Passenger passenger = new Passenger(name, email, phone, latitude, longitude);
+        for (Passenger p : this.passengerList)
+        {
+            if(p.equals(passenger))
+            {
+                found = true;
+                break;
+            }
+        }
+        if(found == false)
+        {
+            passengerList.add(passenger);
+        }
+    }
 
 } // end class
