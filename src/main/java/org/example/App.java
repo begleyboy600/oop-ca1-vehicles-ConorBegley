@@ -38,6 +38,9 @@ public class App
         {
             System.out.println(v);
         }
+
+        passengerStore.addPassenger("conor", "hansen@gmail.com", "087672343", 24.87248, 76.82742);
+        passengerStore.displayAllPassengers();
         System.out.println("Program exiting... Goodbye");
     }
 }

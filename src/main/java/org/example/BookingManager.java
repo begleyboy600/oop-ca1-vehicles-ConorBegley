@@ -15,4 +15,6 @@ public class BookingManager
 
     //TODO implement functionality as per specification
 
+    //add booking, find booking. call from App
+
 }
