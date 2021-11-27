@@ -1,8 +1,9 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public abstract class Vehicle
+public class Vehicle
 {
     private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");  // get access to the id Generator
 
@@ -58,6 +59,7 @@ public abstract class Vehicle
         this.mileage = mileage;
         this.depotGPSLocation = new LocationGPS(latitude,longitude);
     }
+
 
     public int getId() {
         return id;
@@ -128,6 +130,43 @@ public abstract class Vehicle
     public void setType(String type)
     {
         this.type = type;
+    }
+
+    public IdGenerator getIdGenerator() {
+        return idGenerator;
+    }
+
+    public void setIdGenerator(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getMilesPerKwH() {
+        return milesPerKwH;
+    }
+
+    public void setMilesPerKwH(double milesPerKwH) {
+        this.milesPerKwH = milesPerKwH;
+    }
+
+    public void setDepotGPSLocation(LocationGPS depotGPSLocation) {
+        this.depotGPSLocation = depotGPSLocation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return id == vehicle.id && Double.compare(vehicle.milesPerKwH, milesPerKwH) == 0 && Double.compare(vehicle.costPerMile, costPerMile) == 0 && mileage == vehicle.mileage && Objects.equals(idGenerator, vehicle.idGenerator) && Objects.equals(type, vehicle.type) && Objects.equals(make, vehicle.make) && Objects.equals(model, vehicle.model) && Objects.equals(registration, vehicle.registration) && Objects.equals(lastServicedDate, vehicle.lastServicedDate) && Objects.equals(depotGPSLocation, vehicle.depotGPSLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idGenerator, id, type, make, model, milesPerKwH, registration, costPerMile, lastServicedDate, mileage, depotGPSLocation);
     }
 
     @Override

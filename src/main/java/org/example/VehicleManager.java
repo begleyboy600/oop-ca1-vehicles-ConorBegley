@@ -71,12 +71,50 @@ public class VehicleManager {
     {
         for (Vehicle v : vehicleList)
         {
-            if(v.equals(reg))
+            if(v.getRegistration().equals(reg))
             {
                 return v;
             }
         }
         return null;
+    }
+
+    public Vehicle findVehicleByType(String type)
+    {
+        for(Vehicle t : vehicleList)
+        {
+            if(t.getType().equals(type))
+            {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    //String type, String make, String model, double milesPerKwH,
+    //                   String registration, double costPerMile,
+    //                   int year, int month, int day,
+    //                   int mileage, double latitude, double longitude
+    public void addVehicle(String vehicleType, String vehicleMake, String vehicleModel, double vehicleMilesPerKwH,
+                           String vehicleRegistration, double vehicleCostPerMiles, int vehicleYear, int vehicleMonth,
+                           int vehicleDay,int vehicleMileage, double vehicleLat, double vehicleLong)
+    {
+        boolean found = false;
+        Vehicle vehicle = new Vehicle(vehicleType, vehicleMake, vehicleModel, vehicleMilesPerKwH, vehicleRegistration,
+                vehicleCostPerMiles, vehicleYear, vehicleMonth, vehicleDay,vehicleMileage, vehicleLat, vehicleLong);
+        for(Vehicle a : this.vehicleList)
+        {
+            if(a.equals(vehicle))
+            {
+                found = true;
+                break;
+            }
+        }
+        if(found == false)
+        {
+            vehicleList.add(vehicle);
+        }
+
     }
 
 }

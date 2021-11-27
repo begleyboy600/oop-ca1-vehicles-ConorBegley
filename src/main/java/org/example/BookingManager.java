@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class BookingManager
             Scanner sc = new Scanner(new File(fileName));
             sc.useDelimiter("[,\r\n]+");
             while (sc.hasNext()) {
-                int id = sc.nextInt();
+                int bookingId = sc.nextInt();
                 int passengerId = sc.nextInt();
                 int vehicleId = sc.nextInt();
                 int year = sc.nextInt();
@@ -42,23 +43,33 @@ public class BookingManager
                 int day = sc.nextInt();
                 int hours = sc.nextInt();
                 int mins = sc.nextInt();
-                double startLocationLat = sc.nextDouble();
-                double startLocationLong = sc.nextDouble();
-                double endLocationLat = sc.nextDouble();
-                double endLocationLong = sc.nextDouble();
+                double startLat = sc.nextDouble();
+                double startLong = sc.nextDouble();
+                double endLat = sc.nextDouble();
+                double endLong = sc.nextDouble();
+                double cost = sc.nextDouble();
 
-
-
-                bookingList.add(new Booking(id, passengerId, vehicleId, year, month, day, hours, mins,
-                        startLocationLat, startLocationLong, endLocationLat, endLocationLong));
+                bookingList.add(new Booking(bookingId, passengerId, vehicleId, year, month, day, hours, mins,
+                        startLat, startLong, endLat, endLong, cost));
             }
             sc.close();
-
         }
 
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
+        catch (IOException e) {
+            System.out.println("Exception thrown. " + e);
         }
+    }
+
+    public Booking findBookingByName(String name)
+    {
+        for(Booking b : bookingList)
+        {
+            if(b.equals(name))
+            {
+                return b;
+            }
+        }
+        return null;
     }
 }
 

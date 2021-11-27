@@ -19,18 +19,19 @@ class Booking
 
     //TODO - see specification
 
-    public Booking(int passengerId, int vehicleId, int year, int month, int day, int hour, int mins, double startLat,
-            double startLong, double endLat, double endLong)
+    public Booking(int year, int month, int day, int hour, int mins, double startLat,
+            double startLong, double endLat, double endLong, double cost)
     {
         this.bookingId = idGenerator.getNextId();
-        this.passengerId = passengerId;
-        this.vehicleId = vehicleId;
+        this.passengerId = idGenerator.getNextId();
+        this.vehicleId = idGenerator.getNextId();
         this.bookingDateTime = LocalDateTime.of(year, month, day, hour, mins);
         this.startLocation = new LocationGPS(startLat, startLong);
         this.endLocation = new LocationGPS(endLat, endLong);
+        this.cost = cost;
     }
     public Booking(int bookingId, int passengerId, int vehicleId, int year, int month, int day, int hours, int mins, double startLat,
-                   double startLong, double endLat, double endLong)
+                   double startLong, double endLat, double endLong, double cost)
     {
         this.bookingId = bookingId;
         this.passengerId = passengerId;
@@ -38,6 +39,7 @@ class Booking
         this.bookingDateTime = LocalDateTime.of(year, month, day, hours, mins);
         this.startLocation = new LocationGPS(startLat, startLong);
         this.endLocation = new LocationGPS(endLat, endLong);
+        this.cost = cost;
     }
     public int getBookingId() {
         return bookingId;
@@ -94,6 +96,7 @@ class Booking
     public void setCost(double cost) {
         this.cost = cost;
     }
+
 
     @Override
     public String toString() {
