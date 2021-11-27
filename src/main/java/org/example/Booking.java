@@ -1,9 +1,13 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 class Booking
 {
+    private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");  // get access to the id Generator
+
     private int bookingId;
     private int passengerId;
     private int vehicleId;
@@ -15,6 +19,26 @@ class Booking
 
     //TODO - see specification
 
+    public Booking(int passengerId, int vehicleId, int year, int month, int day, int hour, int mins, double startLat,
+            double startLong, double endLat, double endLong)
+    {
+        this.bookingId = idGenerator.getNextId();
+        this.passengerId = passengerId;
+        this.vehicleId = vehicleId;
+        this.bookingDateTime = LocalDateTime.of(year, month, day, hour, mins);
+        this.startLocation = new LocationGPS(startLat, startLong);
+        this.endLocation = new LocationGPS(endLat, endLong);
+    }
+    public Booking(int bookingId, int passengerId, int vehicleId, int year, int month, int day, int hours, int mins, double startLat,
+                   double startLong, double endLat, double endLong)
+    {
+        this.bookingId = bookingId;
+        this.passengerId = passengerId;
+        this.vehicleId = vehicleId;
+        this.bookingDateTime = LocalDateTime.of(year, month, day, hours, mins);
+        this.startLocation = new LocationGPS(startLat, startLong);
+        this.endLocation = new LocationGPS(endLat, endLong);
+    }
     public int getBookingId() {
         return bookingId;
     }

@@ -24,6 +24,16 @@ public class PassengerStore {
             System.out.println(p.toString());
         }
     }
+    public Passenger findPassengerByName(String name){
+
+        for (Passenger p : this.passengerList) {
+            if(p.getName().equals(name))
+            {
+                return p;
+            }
+        }
+        return null;
+    }
 
 
     /**
@@ -74,5 +84,6 @@ public class PassengerStore {
             passengerList.add(passenger);
         }
     }
+
 
 } // end class
