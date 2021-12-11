@@ -3,6 +3,7 @@ package org.example;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.util.Objects;
 
 class Booking
 {
@@ -41,6 +42,19 @@ class Booking
         this.endLocation = new LocationGPS(endLat, endLong);
         this.cost = cost;
     }
+
+    public Booking(int passengerId, int vehicleId, int year, int month, int day, int hours, int mins, double startLat,
+                   double startLong, double endLat, double endLong, double cost)
+    {
+        this.bookingId = idGenerator.getNextId();
+        this.passengerId = idGenerator.getNextId();
+        this.vehicleId = idGenerator.getNextId();
+        this.bookingDateTime = LocalDateTime.of(year, month, day, hours, mins);
+        this.startLocation = new LocationGPS(startLat, startLong);
+        this.endLocation = new LocationGPS(endLat, endLong);
+        this.cost = cost;
+    }
+
     public int getBookingId() {
         return bookingId;
     }
@@ -97,6 +111,19 @@ class Booking
         this.cost = cost;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return bookingId == booking.bookingId && passengerId == booking.passengerId && vehicleId == booking.vehicleId && Double.compare(booking.cost, cost) == 0 && Objects.equals(idGenerator, booking.idGenerator) && Objects.equals(bookingDateTime, booking.bookingDateTime) && Objects.equals(startLocation, booking.startLocation) && Objects.equals(endLocation, booking.endLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idGenerator, bookingId, passengerId, vehicleId, bookingDateTime, startLocation, endLocation, cost);
+    }
 
     @Override
     public String toString() {

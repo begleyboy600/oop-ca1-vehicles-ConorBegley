@@ -90,11 +90,32 @@ public class VehicleManager {
         }
         return null;
     }
+    public Vehicle displayAllVehicleId()
+    {
+        ArrayList<Integer> vIds= new ArrayList<>();
+        for(Vehicle t : vehicleList)
+        {
+            vIds.add(t.getId());
+        }
+        for(int id : vIds)
+        {
+            System.out.println(id);
+        }
 
-    //String type, String make, String model, double milesPerKwH,
-    //                   String registration, double costPerMile,
-    //                   int year, int month, int day,
-    //                   int mileage, double latitude, double longitude
+        return null;
+    }
+    public Vehicle findVehicleById(int vId)
+    {
+        for(Vehicle t : vehicleList)
+        {
+            if(t.getId() == vId)
+            {
+                return t;
+            }
+        }
+        return null;
+    }
+
     public void addVehicle(String vehicleType, String vehicleMake, String vehicleModel, double vehicleMilesPerKwH,
                            String vehicleRegistration, double vehicleCostPerMiles, int vehicleYear, int vehicleMonth,
                            int vehicleDay,int vehicleMileage, double vehicleLat, double vehicleLong)
@@ -115,6 +136,29 @@ public class VehicleManager {
             vehicleList.add(vehicle);
         }
 
+    }
+    public int findVehicleIdByType(String vehicleType)
+    {
+        int vehicleId =0;
+        for(Vehicle v : vehicleList)
+        {
+            if(v.getType().equals(vehicleType))
+            {
+                vehicleId = v.getId();
+            }
+
+        }
+        return vehicleId;
+    }
+    public boolean checkIfIdsEqual(int vehicleId)
+    {
+        boolean found = false;
+        for(Vehicle v: vehicleList)
+        {
+            if(v.getId() == vehicleId);
+            found = true;
+        }
+        return found;
     }
 
 }
