@@ -35,31 +35,6 @@ public class PassengerStore {
         }
         return null;
     }
-//    public int findPassengerIdByName(String name)
-//    {
-//        int id =0;
-//        for (Passenger p : this.passengerList) {
-//            if(p.getName().equals(name))
-//            {
-//                id = p.getId();
-//
-//            }
-//        }
-//        return id;
-//
-//    }
-//    public boolean checkIfIdsEqual(int passengerId)
-//    {
-//        boolean found = false;
-//        for(Passenger p : passengerList)
-//        {
-//            if(p.getId() == passengerId)
-//            {
-//                found = true;
-//            }
-//        }
-//        return found;
-//    }
 
     private void loadPassengerDataFromFile(String filename) {
 
@@ -106,23 +81,14 @@ public class PassengerStore {
         }
     }
 
-    public void deletePassenger(String bookingName)
+    public void deletePassenger()
     {
-        boolean found = false;
-        Passenger passenger = null;
-        for(Passenger p : passengerList)
-        {
-            if(p.getName().equals(bookingName));
-            {
-                passenger = p;
-                found = true;
-                break;
-            }
-        }
-        if(found == false)
-        {
-            passengerList.remove(passenger);
-        }
+        Scanner keyboard = new Scanner(System.in);
+        displayAllPassengerId();
+        System.out.println("enter passenger Id that you want to delete");
+        int pId = keyboard.nextInt();
+        passengerList.removeIf(p -> pId == p.getId());
+        displayAllPassengers();
     }
     public void displayAllPassengerId()
     {
@@ -160,16 +126,14 @@ public class PassengerStore {
                 + "2. Edit Email\n"
                 + "3. Edit Phone\n"
                 + "4. Edit Latitude\n"
-                + "5. Edit Longitude\n"
-                + "6. Exit\n"
-                + "Enter Option [1,6]";
+                + "5. Exit\n"
+                + "Enter Option [1,5]";
 
         final int EDIT_NAME = 1;
         final int EDIT_EMAIL = 2;
         final int EDIT_PHONE = 3;
-        final int EDIT_LATITUDE = 4;
-        final int EDIT_LONGITUDE = 5;
-        final int EXIT_MENU = 6;
+        final int EDIT_LOCATION = 4;
+        final int EXIT_MENU = 5;
 
         int opt = 0;
         do
@@ -179,8 +143,6 @@ public class PassengerStore {
             {
                 String usersInput = keyboard.nextLine();
                 opt = Integer.parseInt(usersInput);
-                double newLatitude = 0.0;
-                double newLongitude = 0.0;
                 switch (opt)
                 {
                     case EDIT_NAME:
@@ -198,18 +160,16 @@ public class PassengerStore {
                         String newPhone = keyboard.nextLine();
                         p.setPhone(newPhone);
                         break;
-                    case EDIT_LATITUDE:
+                    case EDIT_LOCATION:
                         System.out.println("Enter Latitude: ");
-                        newLatitude = keyboard.nextDouble();
-
-                        break;
-                    case EDIT_LONGITUDE:
+                        double newLatitude = keyboard.nextDouble();
                         System.out.println("Enter Longitude: ");
-                        newLongitude = keyboard.nextDouble();
+                        double newLongitude = keyboard.nextDouble();
+                        p.setLocation(newLatitude, newLongitude);
                         break;
+
                 }
-                p.setLocation(newLatitude, newLongitude);
-                System.out.println(p);
+                System.out.println("passenger edited: " + p);
             }
             catch (InputMismatchException |NumberFormatException e)
             {

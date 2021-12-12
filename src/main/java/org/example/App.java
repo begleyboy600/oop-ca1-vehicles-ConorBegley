@@ -254,10 +254,8 @@ public class App
                                 passengerLat, passengerLong);
                         break;
                     case DELETE_PASSENGER:
-                        System.out.println("Delete Passenger by Name");
-                        System.out.println("Enter passenger Name: ");
-                        String bookingName = keyboard.nextLine();
-                        passengerStore.deletePassenger(bookingName);
+                        System.out.println("Delete Passenger by ID");
+                        passengerStore.deletePassenger();
                         break;
                     case EDIT_PASSENGER:
                         passengerStore.editPassengerMenu();

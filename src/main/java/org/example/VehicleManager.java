@@ -135,30 +135,5 @@ public class VehicleManager {
         {
             vehicleList.add(vehicle);
         }
-
     }
-    public int findVehicleIdByType(String vehicleType)
-    {
-        int vehicleId =0;
-        for(Vehicle v : vehicleList)
-        {
-            if(v.getType().equals(vehicleType))
-            {
-                vehicleId = v.getId();
-            }
-
-        }
-        return vehicleId;
-    }
-    public boolean checkIfIdsEqual(int vehicleId)
-    {
-        boolean found = false;
-        for(Vehicle v: vehicleList)
-        {
-            if(v.getId() == vehicleId);
-            found = true;
-        }
-        return found;
-    }
-
 }

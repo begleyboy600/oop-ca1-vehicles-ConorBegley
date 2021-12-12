@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class BookingManager
 {
@@ -27,9 +28,6 @@ public class BookingManager
         for (Booking b : bookingList)
             System.out.println(b.toString());
     }
-
-
-    //add booking, find booking. call from App
 
     public void loadBookingsFromFile(String fileName) throws FileNotFoundException {
         try {
@@ -205,32 +203,20 @@ public class BookingManager
         final String EDIT_MENU_ITEMS = "\n*** EDIT BOOKING MENU ***\n"
                 + "1. Edit Booking Passenger ID\n"
                 + "2. Edit Booking Vehicle ID\n"
-                + "3. Edit Booking Year\n"
-                + "4. Edit Booking Month\n"
-                + "5. Edit Booking Day\n"
-                + "6. Edit Booking Hour\n"
-                + "7. Edit Booking Minutes\n"
-                + "8. Edit Booking Start Latitude\n"
-                + "9. Edit Booking End Longitude\n"
-                + "10. Edit Booking Start Latitude\n"
-                + "11. Edit Booking End Longitude\n"
-                + "12. Edit Booking Cost\n"
-                + "13. Exit\n"
-                + "Enter Option [1,13]";
+                + "3. Edit Booking Time\n"
+                + "4. Edit Booking Start Location\n"
+                + "5. Edit Booking End Location\n"
+                + "6. Edit Booking Cost\n"
+                + "7 Exit\n"
+                + "Enter Option [1,7]";
 
         final int EDIT_BOOKING_PASSENGER_ID = 1;
         final int EDIT_BOOKING_VEHICLE_ID = 2;
-        final int EDIT_BOOKING_YEAR = 3;
-        final int EDIT_BOOKING_MONTH = 4;
-        final int EDIT_BOOKING_DAY = 5;
-        final int EDIT_BOOKING_HOUR = 6;
-        final int EDIT_BOOKING_MINUTE = 7;
-        final int EDIT_BOOKING_START_LATITUDE = 8;
-        final int EDIT_BOOKING_START_LONGITUDE = 9;
-        final int EDIT_BOOKING_END_LATITUDE = 10;
-        final int EDIT_BOOKING_END_LONGITUDE = 11;
-        final int EDIT_BOOKING_COST = 12;
-        final int EXIT_BOOKING_MENU = 13;
+        final int EDIT_BOOKING_TIME = 3;
+        final int EDIT_BOOKING_START_LOCATION = 4;
+        final int EDIT_BOOKING_END_LOCATION = 5;
+        final int EDIT_BOOKING_COST = 6;
+        final int EXIT_BOOKING_MENU = 7;
 
         int opt = 0;
         do
@@ -240,15 +226,6 @@ public class BookingManager
             {
                 String usersInput = keyboard.nextLine();
                 opt = Integer.parseInt(usersInput);
-                int year = 0;
-                int month = 0;
-                int day = 0;
-                int hour = 0;
-                int minute = 0;
-                double startLat = 0.0;
-                double startLong = 0.0;
-                double endLat = 0.0;
-                double endLong = 0.0;
                 switch (opt)
                 {
                     case EDIT_BOOKING_PASSENGER_ID:
@@ -261,41 +238,35 @@ public class BookingManager
                         int vId = keyboard.nextInt();
                         b.setVehicleId(vId);
                         break;
-                    case EDIT_BOOKING_YEAR:
+                    case EDIT_BOOKING_TIME:
                         System.out.println("Enter Year: ");
-                        year = keyboard.nextInt();
-                        break;
-                    case EDIT_BOOKING_MONTH:
+                        int year = keyboard.nextInt();
                         System.out.println("Enter Month: ");
-                        month = keyboard.nextInt();
-                        break;
-                    case EDIT_BOOKING_DAY:
+                        int month = keyboard.nextInt();
                         System.out.println("Enter Day: ");
-                        day = keyboard.nextInt();
-                        break;
-                    case EDIT_BOOKING_HOUR:
+                        int day = keyboard.nextInt();
                         System.out.println("Enter Hour: ");
-                        hour = keyboard.nextInt();
-                        break;
-                    case EDIT_BOOKING_MINUTE:
+                        int hour = keyboard.nextInt();
                         System.out.println("Enter Minute: ");
-                        minute = keyboard.nextInt();
+                        int minute = keyboard.nextInt();
+                        LocalDateTime time = LocalDateTime.of(year,month,day,hour,minute);
+                        b.setBookingDateTime(time);
                         break;
-                    case EDIT_BOOKING_START_LATITUDE:
+                    case EDIT_BOOKING_START_LOCATION:
                         System.out.println("Enter Start Latitude: ");
-                        startLat = keyboard.nextDouble();
-                        break;
-                    case EDIT_BOOKING_START_LONGITUDE:
+                        double startLat = keyboard.nextDouble();
                         System.out.println("Enter Start Longitude: ");
-                        startLong = keyboard.nextDouble();
+                        double startLong = keyboard.nextDouble();
+                        LocationGPS startLocation = new LocationGPS(startLat, startLong);
+                        b.setStartLocation(startLocation);
                         break;
-                    case EDIT_BOOKING_END_LATITUDE:
+                    case EDIT_BOOKING_END_LOCATION:
                         System.out.println("Enter End Latitude: ");
-                        endLat = keyboard.nextDouble();
-                        break;
-                    case EDIT_BOOKING_END_LONGITUDE:
+                        double endLat = keyboard.nextDouble();
                         System.out.println("Enter End Longitude: ");
-                        endLong = keyboard.nextDouble();
+                        double endLong = keyboard.nextDouble();
+                        LocationGPS endLocation = new LocationGPS(endLat, endLong);
+                        b.setEndLocation(endLocation);
                         break;
                     case EDIT_BOOKING_COST:
                         System.out.println("Enter Cost");
@@ -303,12 +274,6 @@ public class BookingManager
                         b.setCost(cost);
                         break;
                 }
-                LocalDateTime time = LocalDateTime.of(year,month,day,hour,minute);
-                b.setBookingDateTime(time);
-                LocationGPS startLocation = new LocationGPS(startLat, startLong);
-                b.setStartLocation(startLocation);
-                LocationGPS endLocation = new LocationGPS(endLat, endLong);
-                b.setEndLocation(endLocation);
                 System.out.println(b);
             }
             catch (InputMismatchException |NumberFormatException e)
